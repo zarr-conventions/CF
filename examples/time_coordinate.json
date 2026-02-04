@@ -1,0 +1,19 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11"
+      }
+    ],
+    "standard_name": "time",
+    "long_name": "Time",
+    "units": "days since 1970-01-01 00:00:00",
+    "calendar": "proleptic_gregorian",
+    "axis": "T",
+    "bounds": "time_bnds"
+  }
+}

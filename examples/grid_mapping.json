@@ -1,0 +1,22 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11"
+      }
+    ],
+    "grid_mapping_name": "transverse_mercator",
+    "longitude_of_central_meridian": 9.0,
+    "latitude_of_projection_origin": 0.0,
+    "scale_factor_at_central_meridian": 0.9996,
+    "false_easting": 500000.0,
+    "false_northing": 0.0,
+    "semi_major_axis": 6378137.0,
+    "inverse_flattening": 298.257223563,
+    "crs_wkt": "PROJCRS[\"WGS 84 / UTM zone 32N\",BASEGEOGCRS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",ELLIPSOID[\"WGS 84\",6378137,298.257223563]],ID[\"EPSG\",4326]],CONVERSION[\"UTM zone 32N\",METHOD[\"Transverse Mercator\"],PARAMETER[\"Latitude of natural origin\",0],PARAMETER[\"Longitude of natural origin\",9],PARAMETER[\"Scale factor at natural origin\",0.9996],PARAMETER[\"False easting\",500000],PARAMETER[\"False northing\",0]],CS[Cartesian,2],AXIS[\"easting\",east],AXIS[\"northing\",north],UNIT[\"metre\",1],ID[\"EPSG\",32632]]"
+  }
+}

@@ -1,7 +1,8 @@
 {
   "type": "module",
-  "name": "zarr-convention-metadata-template",
+  "name": "zarr-convention-cf",
   "version": "0.1.0",
+  "description": "CF (Climate and Forecast) conventions for Zarr",
   "scripts": {
     "test": "node test.js",
     "fmt": "prettier --write **/*.{js,json,md}",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Template Convention",
-  "description": "Schema for Template Zarr convention, supporting both key-prefixed and nested namespace patterns",
+  "title": "CF Conventions for Zarr",
+  "description": "Schema for Climate and Forecast (CF) conventions in Zarr. CF attributes use their standard unprefixed names for backwards compatibility with existing CF-compliant datasets and libraries like cf-python and xarray.",
   "type": "object",
   "properties": {
     "zarr_format": {
@@ -15,7 +15,7 @@
     },
     "attributes": {
       "type": "object",
-      "description": "Zarr attributes containing convention metadata and properties",
+      "description": "Zarr attributes containing convention metadata and CF attributes (unprefixed for backwards compatibility)",
       "properties": {
         "zarr_conventions": {
           "type": "array",
@@ -26,14 +26,7 @@
         }
       },
       "required": ["zarr_conventions"],
-      "oneOf": [
-        {
-          "$ref": "#/$defs/keyPrefixedAttributes"
-        },
-        {
-          "$ref": "#/$defs/nestedAttributes"
-        }
-      ]
+      "$ref": "#/$defs/cfAttributes"
     }
   },
   "required": ["zarr_format", "node_type", "attributes"],
@@ -41,121 +34,277 @@
   "$defs": {
     "conventionMetadata": {
       "type": "object",
-      "description": "Template convention metadata object for use in zarr_conventions array",
+      "description": "CF conventions metadata object for use in zarr_conventions array",
       "properties": {
         "schema_url": {
           "type": "string",
-          "const": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json",
+          "const": "https://raw.githubusercontent.com/zarr-conventions/CF/refs/tags/v1/schema.json",
           "description": "URL to the JSON Schema definition for this convention"
         },
         "spec_url": {
           "type": "string",
-          "const": "https://github.com/zarr-conventions/template/blob/v1/README.md",
-          "description": "URL to the full specification document"
+          "description": "URL to the CF conventions specification document"
         },
         "uuid": {
           "type": "string",
-          "const": "00000000-0000-0000-0000-000000000000",
+          "const": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
           "description": "UUID that permanently identifies this convention"
         },
         "name": {
           "type": "string",
-          "description": "Human-readable name of the convention. Should be 'template:' for key-prefixed pattern or 'template' for nested pattern"
+          "const": "CF",
+          "description": "Human-readable name of the convention (no colon suffix indicates unprefixed attributes for backwards compatibility)"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$",
+          "description": "CF conventions version (e.g., '1.11', '1.10')"
         },
         "description": {
           "type": "string",
-          "const": "Template convention for demonstrating Zarr convention metadata structure",
+          "const": "Climate and Forecast conventions for self-describing geospatial data",
           "description": "Brief description of the convention's purpose and usage"
         }
       },
       "anyOf": [
-        {
-          "required": ["schema_url"]
-        },
-        {
-          "required": ["spec_url"]
-        },
-        {
-          "required": ["uuid"]
-        }
+        { "required": ["schema_url"] },
+        { "required": ["spec_url"] },
+        { "required": ["uuid"] }
       ],
       "additionalProperties": false
     },
-    "conventionProperties": {
+    "cfAttributes": {
       "type": "object",
-      "description": "Template convention properties",
+      "description": "CF convention attributes. All attributes use standard CF names (unprefixed) for backwards compatibility with existing CF-compliant datasets.",
       "properties": {
-        "new_field": {
+        "zarr_conventions": true,
+        "Conventions": {
           "type": "string",
-          "description": "REQUIRED. Describe the required field..."
+          "description": "CF conventions version string (e.g., 'CF-1.11'). May include other conventions separated by spaces.",
+          "pattern": "(^|\\s)CF-[0-9]+\\.[0-9]+"
         },
-        "xyz": {
-          "$ref": "#/$defs/xyzObject"
+        "title": {
+          "type": "string",
+          "description": "A succinct description of what is in the dataset"
         },
-        "another_one": {
+        "institution": {
+          "type": "string",
+          "description": "Specifies where the original data was produced"
+        },
+        "source": {
+          "type": "string",
+          "description": "The method of production of the original data"
+        },
+        "history": {
+          "type": "string",
+          "description": "Provides an audit trail for modifications to the original data"
+        },
+        "references": {
+          "type": "string",
+          "description": "Published or web-based references that describe the data or methods"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Miscellaneous information about the data or methods"
+        },
+        "standard_name": {
+          "type": "string",
+          "description": "A standard name from the CF Standard Name Table that identifies the quantity"
+        },
+        "long_name": {
+          "type": "string",
+          "description": "A descriptive name that indicates a variable's content"
+        },
+        "units": {
+          "type": "string",
+          "description": "Units of the variable's values, recognized by UDUNITS"
+        },
+        "calendar": {
+          "type": "string",
+          "description": "Calendar used for time coordinates",
+          "enum": [
+            "standard",
+            "gregorian",
+            "proleptic_gregorian",
+            "noleap",
+            "365_day",
+            "all_leap",
+            "366_day",
+            "360_day",
+            "julian",
+            "none"
+          ]
+        },
+        "axis": {
+          "type": "string",
+          "description": "Identifies the axis type (X, Y, Z, or T)",
+          "enum": ["X", "Y", "Z", "T"]
+        },
+        "positive": {
+          "type": "string",
+          "description": "Direction of increasing vertical coordinate values",
+          "enum": ["up", "down"]
+        },
+        "coordinates": {
+          "type": "string",
+          "description": "Space-separated list of auxiliary coordinate variable names"
+        },
+        "bounds": {
+          "type": "string",
+          "description": "Name of the boundary variable for this coordinate"
+        },
+        "cell_methods": {
+          "type": "string",
+          "description": "Describes the characteristic of a field representing a cell"
+        },
+        "cell_measures": {
+          "type": "string",
+          "description": "Identifies variables containing cell areas or volumes"
+        },
+        "grid_mapping": {
+          "type": "string",
+          "description": "Name of the grid mapping variable containing CRS information"
+        },
+        "ancillary_variables": {
+          "type": "string",
+          "description": "Space-separated list of ancillary data variable names"
+        },
+        "flag_values": {
           "type": "array",
-          "description": "Array of numeric values",
+          "description": "Array of flag values for categorical data",
+          "items": {
+            "type": ["integer", "number"]
+          }
+        },
+        "flag_meanings": {
+          "type": "string",
+          "description": "Space-separated list of flag meaning strings"
+        },
+        "flag_masks": {
+          "type": "array",
+          "description": "Array of flag masks for bit-field data",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "valid_min": {
+          "type": "number",
+          "description": "Minimum valid value for the variable"
+        },
+        "valid_max": {
+          "type": "number",
+          "description": "Maximum valid value for the variable"
+        },
+        "valid_range": {
+          "type": "array",
+          "description": "Two-element array [valid_min, valid_max]",
+          "minItems": 2,
+          "maxItems": 2,
           "items": {
             "type": "number"
           }
-        }
-      },
-      "required": ["new_field"],
-      "additionalProperties": false
-    },
-    "xyzObject": {
-      "type": "object",
-      "description": "XYZ Object containing x, y, z coordinates",
-      "properties": {
-        "x": {
-          "type": "number",
-          "description": "REQUIRED. X coordinate value"
         },
-        "y": {
-          "type": "number",
-          "description": "REQUIRED. Y coordinate value"
+        "_FillValue": {
+          "type": ["number", "string", "null"],
+          "description": "Value used to indicate missing or undefined data"
         },
-        "z": {
+        "missing_value": {
+          "type": ["number", "string", "null"],
+          "description": "Deprecated alias for _FillValue"
+        },
+        "add_offset": {
           "type": "number",
-          "description": "REQUIRED. Z coordinate value"
-        }
-      },
-      "required": ["x", "y", "z"],
-      "additionalProperties": false
-    },
-    "keyPrefixedAttributes": {
-      "type": "object",
-      "description": "Template convention using key-prefixed pattern (e.g., template:new_field)",
-      "properties": {
-        "zarr_conventions": true,
-        "template:new_field": {
+          "description": "Offset to be added after scaling: value = scale_factor * packed + add_offset"
+        },
+        "scale_factor": {
+          "type": "number",
+          "description": "Scale factor for packed data: value = scale_factor * packed + add_offset"
+        },
+        "compress": {
           "type": "string",
-          "description": "REQUIRED. Describe the required field..."
+          "description": "Name of the dimension to be uncompressed"
         },
-        "template:xyz": {
-          "$ref": "#/$defs/xyzObject"
+        "formula_terms": {
+          "type": "string",
+          "description": "Identifies variables used in computing dimensionless vertical coordinates"
         },
-        "template:another_one": {
-          "type": "array",
-          "description": "Array of numeric values",
-          "items": {
-            "type": "number"
-          }
+        "standard_name_vocabulary": {
+          "type": "string",
+          "description": "Name of the controlled vocabulary for standard_name"
+        },
+        "grid_mapping_name": {
+          "type": "string",
+          "description": "Name of the grid mapping/projection method"
+        },
+        "crs_wkt": {
+          "type": "string",
+          "description": "Well-Known Text representation of the CRS (WKT2)"
+        },
+        "semi_major_axis": {
+          "type": "number",
+          "description": "Semi-major axis of the ellipsoid"
+        },
+        "semi_minor_axis": {
+          "type": "number",
+          "description": "Semi-minor axis of the ellipsoid"
+        },
+        "inverse_flattening": {
+          "type": "number",
+          "description": "Inverse flattening of the ellipsoid"
+        },
+        "earth_radius": {
+          "type": "number",
+          "description": "Radius of the Earth for spherical approximation"
+        },
+        "longitude_of_prime_meridian": {
+          "type": "number",
+          "description": "Longitude of the prime meridian"
+        },
+        "false_easting": {
+          "type": "number",
+          "description": "False easting parameter"
+        },
+        "false_northing": {
+          "type": "number",
+          "description": "False northing parameter"
+        },
+        "longitude_of_projection_origin": {
+          "type": "number",
+          "description": "Longitude of projection origin"
+        },
+        "latitude_of_projection_origin": {
+          "type": "number",
+          "description": "Latitude of projection origin"
+        },
+        "scale_factor_at_projection_origin": {
+          "type": "number",
+          "description": "Scale factor at projection origin"
+        },
+        "scale_factor_at_central_meridian": {
+          "type": "number",
+          "description": "Scale factor at central meridian"
+        },
+        "longitude_of_central_meridian": {
+          "type": "number",
+          "description": "Longitude of central meridian"
+        },
+        "straight_vertical_longitude_from_pole": {
+          "type": "number",
+          "description": "Straight vertical longitude from pole"
+        },
+        "standard_parallel": {
+          "oneOf": [
+            { "type": "number" },
+            {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 1,
+              "maxItems": 2
+            }
+          ],
+          "description": "Standard parallel(s) for the projection"
         }
       },
-      "required": ["template:new_field"],
-      "additionalProperties": true
-    },
-    "nestedAttributes": {
-      "type": "object",
-      "description": "Template convention using nested pattern (single 'template' key)",
-      "properties": {
-        "zarr_conventions": true,
-        "template": {
-          "$ref": "#/$defs/conventionProperties"
-        }
-      },
-      "required": ["template"],
       "additionalProperties": true
     }
   }

@@ -1,0 +1,24 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11"
+      },
+      {
+        "uuid": "f17cb550-5864-4468-aeb7-f3180cfb622f",
+        "name": "proj:"
+      }
+    ],
+    "Conventions": "CF-1.11",
+    "standard_name": "air_temperature",
+    "long_name": "Near-Surface Air Temperature",
+    "units": "K",
+    "grid_mapping": "crs",
+    "coordinates": "lat lon",
+    "proj:code": "EPSG:4326"
+  }
+}

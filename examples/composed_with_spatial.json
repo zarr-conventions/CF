@@ -1,0 +1,25 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11"
+      },
+      {
+        "uuid": "689b58e2-cf7b-45e0-9fff-9cfc0883d6b4",
+        "name": "spatial:"
+      }
+    ],
+    "Conventions": "CF-1.11",
+    "standard_name": "sea_surface_temperature",
+    "long_name": "Sea Surface Temperature",
+    "units": "K",
+    "coordinates": "lat lon",
+    "spatial:dimensions": ["lat", "lon"],
+    "spatial:transform": [0.25, 0.0, -180.0, 0.0, -0.25, 90.0],
+    "spatial:bbox": [-180.0, -90.0, 180.0, 90.0]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "zarr_format": 3,
+  "node_type": "group",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/CF/refs/tags/v1/schema.json",
+        "spec_url": "https://cfconventions.org/Data/cf-conventions/cf-conventions-1.11/cf-conventions.html",
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11",
+        "description": "Climate and Forecast conventions for self-describing geospatial data"
+      }
+    ],
+    "Conventions": "CF-1.11",
+    "title": "Example dataset with minimal CF registration",
+    "institution": "Example Organization"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6",
+        "name": "CF",
+        "version": "1.11"
+      }
+    ],
+    "standard_name": "quality_flag",
+    "long_name": "Quality Control Flag",
+    "flag_values": [0, 1, 2, 3, 4],
+    "flag_meanings": "good suspect bad missing not_evaluated"
+  }
+}
