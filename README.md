@@ -256,8 +256,3 @@ This convention builds upon work from multiple communities and projects:
 - **[cf-python](https://ncas-cms.github.io/cf-python/)** - CF-compliant Python library that informed attribute validation patterns.
 - **[xarray](https://xarray.pydata.org/)** and **[cf-xarray](https://cf-xarray.readthedocs.io/)** - N-dimensional labeled arrays with CF support.
 - **[netCDF4-python](https://unidata.github.io/netcdf4-python/)** - NetCDF library that established CF-on-NetCDF patterns now adapted for Zarr.
-
-### Contributing Organizations
-
-- **[Unidata](https://www.unidata.ucar.edu/)** - For maintaining CF conventions and related infrastructure.
-- **[UK Met Office](https://www.metoffice.gov.uk/)** - For cf-python and CF conventions governance contributions.
