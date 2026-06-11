@@ -27,7 +27,7 @@ The convention registration in `zarr_conventions` declares intent to use CF conv
 - [Time coordinate](examples/time_coordinate.json) - Time coordinate with calendar
 - [Grid mapping](examples/grid_mapping.json) - CRS definition via grid_mapping attributes
 - [Flag variable](examples/flag_variable.json) - Categorical data with flag_values/flag_meanings
-- [Composed with proj:](examples/composed_with_proj.json) - CF + geo-proj convention
+- [Composed with proj:](examples/composed_with_proj.json) - CF + proj convention
 - [Composed with spatial:](examples/composed_with_spatial.json) - CF + spatial convention
 
 ## Motivation
@@ -35,7 +35,7 @@ The convention registration in `zarr_conventions` declares intent to use CF conv
 - **Backwards compatibility**: Millions of CF-compliant datasets exist; this convention allows registering CF usage without modifying existing attributes
 - **Library compatibility**: cf-python, xarray, and other CF-aware libraries can process data without modification
 - **Version tracking**: The `version` field in the convention metadata allows tracking which CF version the dataset conforms to
-- **Composability**: CF convention can be combined with geo-proj, spatial, and multiscales conventions
+- **Composability**: CF convention can be combined with proj, spatial, and multiscales conventions
 
 ## Convention Registration
 
@@ -128,15 +128,15 @@ CF attributes are placed directly in `attributes` without any prefix. The full l
 
 ## Composition with Other Conventions
 
-### CF + geo-proj
+### CF + proj
 
-CF's `grid_mapping` attributes and geo-proj's `proj:code`/`proj:wkt2`/`proj:projjson` both encode CRS information. They can coexist and should be kept consistent:
+CF's `grid_mapping` attributes and proj's `proj:code`/`proj:wkt2`/`proj:projjson` both encode CRS information. They can coexist and should be kept consistent:
 
 ```json
 {
   "zarr_conventions": [
     { "name": "CF", "uuid": "77c308c7-4db2-4774-8b2d-aa37e9997db6", "version": "1.11" },
-    { "name": "proj:", "uuid": "f17cb550-5864-4468-aeb7-f3180cfb622f" }
+    { "name": "proj", "uuid": "f17cb550-5864-4468-aeb7-f3180cfb622f" }
   ],
   "standard_name": "air_temperature",
   "units": "K",
@@ -244,7 +244,7 @@ This convention builds upon work from multiple communities and projects:
 
 - **[CF Conventions](https://cfconventions.org/)** - The Climate and Forecast conventions maintained by the CF Governance Panel. CF conventions define the metadata attributes used in this specification.
 - **[STAC Extensions Template](https://github.com/stac-extensions/template)** - The convention documentation structure is based on the STAC extensions template.
-- **[geo-proj Convention](https://github.com/zarr-experimental/geo-proj)** and **[spatial Convention](https://github.com/zarr-conventions/spatial)** - Sister conventions that this CF convention is designed to compose with.
+- **[proj Convention](https://github.com/zarr-conventions/proj)** and **[spatial Convention](https://github.com/zarr-conventions/spatial)** - Sister conventions that this CF convention is designed to compose with.
 
 ### External Standards
 
